@@ -19,23 +19,54 @@ namespace Tjuv_Polis
 
                 int x = Random.Shared.Next(1, 99);
                 int y = Random.Shared.Next(1, 24);
-                
+
+
+                int Xdirection = 0;
+                int Ydirection = 0;
+
+                int choosenNr = Random.Shared.Next(0, 6);
+
+                switch (choosenNr)
+                {
+                    case 0:
+                        Xdirection = -1;
+                        break;
+                    case 1:
+                        Ydirection = -1;
+                        break;
+                    case 2:
+                        Xdirection = 1;
+                        break;
+                    case 3:
+                        Ydirection = 1;
+                        break;
+                    case 4:
+                        Xdirection = -1;
+                        Ydirection = -1;
+                        break;
+                    case 5:
+                        Xdirection = 1;
+                        Ydirection = 1;
+                        break;
+                }
+
+
 
                 switch (nr)
                 {
                     case 0:
                         profession = "Tjuv";
-                        Thief thief = new Thief(x, y, 'T', 0, 0);
+                        Thief thief = new Thief(x, y, 'T', Xdirection, Ydirection);
                         persons.Add(thief);
                         break;
                     case 1:
                         profession = "Polis";
-                        Police police = new Police(x, y, 'P', 0, 0);
+                        Police police = new Police(x, y, 'P', Xdirection, Ydirection);
                         persons.Add(police);
                         break;
                     case 2:
                         profession = "Medborgare";
-                        Citizen citizen = new Citizen(x, y, 'C', 0, 0);
+                        Citizen citizen = new Citizen(x, y, 'C', Xdirection, Ydirection);
                         persons.Add(citizen);
                         break;
                 }
@@ -45,7 +76,7 @@ namespace Tjuv_Polis
             }
 
             while (true)
-            {
+            { 
                 for (int r = 0; r < city.GetLength(0); r++)
                 {
                     for (int c = 0; c < city.GetLength(1); c++)
@@ -92,6 +123,30 @@ namespace Tjuv_Polis
                     
                 }
                 Console.ReadLine();
+                foreach (Person person in persons)
+                {
+                   
+
+                    person.Y += person.Ydirection;
+                    person.X += person.Xdirection;
+                    if (person.X == city.GetLength(1) - 1)
+                    {
+                        person.X = 1;
+                    }
+                    if (person.Y == city.GetLength(0) - 1)
+                    {
+                        person.Y = 1;
+                    }
+                    if (person.X == 0)
+                    {
+                        person.X = city.GetLength(1) - 2;
+                    }
+                    if (person.Y == 0)
+                    {
+                        person.Y = city.GetLength(0) - 2;
+                    }
+                }
+                Console.Clear();
             }
 
 
