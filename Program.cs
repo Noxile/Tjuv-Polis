@@ -57,27 +57,27 @@ namespace Tjuv_Polis
                 }
                 string message = "";
                 string message2 = "";
+
                 foreach (Person person in persons)
                 {
                     city[person.Y, person.X] = person.Symbol.ToString();
+                }
 
+                foreach (Person person in persons)
+                {
                     foreach (Person otherPerson in persons)
                     {
                         if (person != otherPerson && person.X == otherPerson.X && person.Y == otherPerson.Y)
                         {
-                            if (person is Police && otherPerson is Thief || person is Thief && otherPerson is Police)
+                            if ((person is Police && otherPerson is Thief) ||(person is Thief && otherPerson is Police))
                             {
                                 city[person.Y, person.X] = "#";
-                                message ="TAGEN";
-                              
-                                break;
+                                message = "TAGEN";
                             }
-                            else if (person is Thief && otherPerson is Citizen)
+                            else if ((person is Thief && otherPerson is Citizen) || (person is Citizen && otherPerson is Thief))
                             {
                                 city[person.Y, person.X] = "%";
-                                message2 ="HEJ HEJ";
-                               
-                                break;
+                                message2 = "HEJ HEJ";
                             }
                         }
                     }
@@ -117,6 +117,9 @@ namespace Tjuv_Polis
                 
                 foreach (Person person in persons)
                 {
+                    person.Xdirection = 0;
+                    person.Ydirection = 0;
+
                     int choosenNr = Random.Shared.Next(0, 6);
 
                     switch (choosenNr)
