@@ -65,14 +65,16 @@ namespace Tjuv_Polis
                     {
                         if (person != otherPerson && person.X == otherPerson.X && person.Y == otherPerson.Y)
                         {
-                            if (person is Police && otherPerson is Thief)
+                            if (person is Police && otherPerson is Thief || person is Thief && otherPerson is Police)
                             {
+                                city[person.Y, person.X] = "#";
                                 message ="TAGEN";
                               
                                 break;
                             }
                             else if (person is Thief && otherPerson is Citizen)
                             {
+                                city[person.Y, person.X] = "%";
                                 message2 ="HEJ HEJ";
                                
                                 break;
