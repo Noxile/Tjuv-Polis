@@ -11,17 +11,16 @@ namespace Tjuv_Polis
             string profession = "";
             List<Person> persons = new List<Person>();
 
-
+            int Xdirection = 0;
+            int Ydirection = 0;
             // Ska flyttas till egen metod
-            for(int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++)
             {
                 int nr = Random.Shared.Next(0, 3);
 
                 int x = Random.Shared.Next(1, 99);
                 int y = Random.Shared.Next(1, 24);
 
-                int Xdirection = 0;
-                int Ydirection = 0;
 
                 switch (nr)
                 {
@@ -56,10 +55,30 @@ namespace Tjuv_Polis
                     }
 
                 }
-
+                string message = "";
+                string message2 = "";
                 foreach (Person person in persons)
                 {
                     city[person.Y, person.X] = person.Symbol.ToString();
+
+                    foreach (Person otherPerson in persons)
+                    {
+                        if (person != otherPerson && person.X == otherPerson.X && person.Y == otherPerson.Y)
+                        {
+                            if (person is Police && otherPerson is Thief)
+                            {
+                                message ="TAGEN";
+                              
+                                break;
+                            }
+                            else if (person is Thief && otherPerson is Citizen)
+                            {
+                                message2 ="HEJ HEJ";
+                               
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 for (int row = 0; row < city.GetLength(0); row++)
@@ -124,6 +143,7 @@ namespace Tjuv_Polis
 
                     person.Y += person.Ydirection;
                     person.X += person.Xdirection;
+                    
                     if (person.X == city.GetLength(1) - 1)
                     {
                         person.X = 1;
@@ -141,7 +161,9 @@ namespace Tjuv_Polis
                         person.Y = city.GetLength(0) - 2;
                     }
                 }
-                Thread.Sleep(500);
+                Console.WriteLine(message );
+                Console.WriteLine( message2);
+                Console.ReadKey( );
                 Console.Clear();
             }
 
