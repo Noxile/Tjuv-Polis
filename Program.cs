@@ -20,37 +20,8 @@ namespace Tjuv_Polis
                 int x = Random.Shared.Next(1, 99);
                 int y = Random.Shared.Next(1, 24);
 
-
                 int Xdirection = 0;
                 int Ydirection = 0;
-
-                int choosenNr = Random.Shared.Next(0, 6);
-
-                switch (choosenNr)
-                {
-                    case 0:
-                        Xdirection = -1;
-                        break;
-                    case 1:
-                        Ydirection = -1;
-                        break;
-                    case 2:
-                        Xdirection = 1;
-                        break;
-                    case 3:
-                        Ydirection = 1;
-                        break;
-                    case 4:
-                        Xdirection = -1;
-                        Ydirection = -1;
-                        break;
-                    case 5:
-                        Xdirection = 1;
-                        Ydirection = 1;
-                        break;
-                }
-
-
 
                 switch (nr)
                 {
@@ -122,10 +93,34 @@ namespace Tjuv_Polis
                     Console.WriteLine();
                     
                 }
-                Console.ReadLine();
+                
                 foreach (Person person in persons)
                 {
-                   
+                    int choosenNr = Random.Shared.Next(0, 6);
+
+                    switch (choosenNr)
+                    {
+                        case 0:
+                            person.Xdirection = -1;
+                            break;
+                        case 1:
+                            person.Ydirection = -1;
+                            break;
+                        case 2:
+                            person.Xdirection = 1;
+                            break;
+                        case 3:
+                            person.Ydirection = 1;
+                            break;
+                        case 4:
+                            person.Xdirection = -1;
+                            person.Ydirection = -1;
+                            break;
+                        case 5:
+                            person.Xdirection = 1;
+                            person.Ydirection = 1;
+                            break;
+                    }
 
                     person.Y += person.Ydirection;
                     person.X += person.Xdirection;
@@ -146,6 +141,7 @@ namespace Tjuv_Polis
                         person.Y = city.GetLength(0) - 2;
                     }
                 }
+                Thread.Sleep(500);
                 Console.Clear();
             }
 
