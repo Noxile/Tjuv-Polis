@@ -6,6 +6,30 @@
         {
             string[,] city = new string[25, 100];
 
+            string profession = "";
+
+            // Ska flyttas till egen metod
+            for(int i = 0; i < 50; i++)
+            {
+                int nr = Random.Shared.Next(0, 3);
+
+                switch (nr)
+                {
+                    case 0:
+                        profession = "Tjuv";
+                        break;
+                    case 1:
+                        profession = "Polis";
+                        break;
+                    case 2:
+                        profession = "Medborgare";
+                        break;
+                }
+
+                Console.WriteLine(profession);
+                
+            }
+
             while (true)
             {
                 for (int r = 0; r < city.GetLength(0); r++)
@@ -21,7 +45,7 @@
                 {
                     for (int col = 0; col < city.GetLength(1); col++)
                     {
-   
+
                         if (row == 0 || row == city.GetLength(0) - 1)
                         {
                             Console.Write("=");
