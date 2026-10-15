@@ -55,17 +55,15 @@ namespace Tjuv_Polis
 
                 }
 
+                foreach (Person person in persons)
+                {
+                    city[person.Y, person.X] = person.Symbol.ToString();
+                }
+
                 for (int row = 0; row < city.GetLength(0); row++)
                 {
                     for (int col = 0; col < city.GetLength(1); col++)
                     {
-                        foreach(Person person in persons)
-                        {
-                            if(row == person.Y && col == person.X)
-                            {
-                                Console.Write(person.Symbol);
-                            }
-                        }
 
                         if (row == 0 || row == city.GetLength(0) - 1)
                         {
@@ -77,17 +75,19 @@ namespace Tjuv_Polis
                         }
                         else
                         {
-                            if (city[row, col] != "")
-                            {
-                                Console.Write(city[row, col]);
-                            }
-                            else if (city[row, col] == "")
-                            {
-                                Console.Write(' ');
-                            }
+                            Console.Write(city[row, col]);
 
+                            //    if (city[row, col] != "")
+                            //    {
+                            //        Console.Write(city[row, col]);
+                            //    }
+                            //    else if (city[row, col] == "")
+                            //    {
+                            //        Console.Write(' ');
+                            //    }
                         }
                     }
+
                     Console.WriteLine();
                     
                 }
