@@ -12,6 +12,8 @@ namespace Tjuv_Polis
         public int Xdirection { get; set; }
         public int Ydirection { get; set; }
 
+
+
         public Person(int x, int y, char symbol, int xDirection, int yDirection)
         {
             X = x;
@@ -22,7 +24,30 @@ namespace Tjuv_Polis
 
            
         }
-    }
 
+    }
+    class Thief : Person
+    {
+
+        public Thief(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
+        {
+
+
+
+        }
+    }
+    class Police : Person
+    {
+        public Police(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
+        {
+        }
+    }
+    class Citizen : Person
+    {
+        public Citizen(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
+        {
+        }
+    }
+     
 
 }
