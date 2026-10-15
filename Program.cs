@@ -1,4 +1,6 @@
-﻿namespace Tjuv_Polis
+﻿using System.Net.Http.Headers;
+
+namespace Tjuv_Polis
 {
     internal class Program
     {
@@ -7,22 +9,34 @@
             string[,] city = new string[25, 100];
 
             string profession = "";
+            List<Person> persons = new List<Person>();
+
 
             // Ska flyttas till egen metod
             for(int i = 0; i < 50; i++)
             {
                 int nr = Random.Shared.Next(0, 3);
 
+                int x = Random.Shared.Next(1, 99);
+                int y = Random.Shared.Next(1, 24);
+                
+
                 switch (nr)
                 {
                     case 0:
                         profession = "Tjuv";
+                        Thief thief = new Thief(x, y, 'T', 0, 0);
+                        persons.Add(thief);
                         break;
                     case 1:
                         profession = "Polis";
+                        Police police = new Police(x, y, 'P', 0, 0);
+                        persons.Add(police);
                         break;
                     case 2:
                         profession = "Medborgare";
+                        Citizen citizen = new Citizen(x, y, 'C', 0, 0);
+                        persons.Add(citizen);
                         break;
                 }
 
@@ -45,6 +59,13 @@
                 {
                     for (int col = 0; col < city.GetLength(1); col++)
                     {
+                        foreach(Person person in persons)
+                        {
+                            if(row == person.Y && col == person.X)
+                            {
+                                Console.Write(person.Symbol);
+                            }
+                        }
 
                         if (row == 0 || row == city.GetLength(0) - 1)
                         {
