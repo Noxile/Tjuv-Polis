@@ -182,11 +182,36 @@ namespace Tjuv_Polis
                         person.Y = city.GetLength(0) - 2;
                     }
                 }
+
+                int policeCount = 0;
+                int thiefCount = 0;
+                int citizenCount = 0;
+
+                foreach (Person person in persons)
+                {
+
+                    if (person is Police)
+                    {
+                        policeCount++;
+                    }
+                    else if(person is Thief)
+                    {
+                        thiefCount++;
+                    }
+                    else if (person is Citizen)
+                    {
+                        citizenCount++;
+                    }
+                }
+                Console.WriteLine($"Antal poliser: {policeCount}");
+                Console.WriteLine($"Antal tjuvar: {thiefCount}");
+                Console.WriteLine($"Antal medborgare: {citizenCount}");
+                Console.WriteLine("=========================================================");
+
                 Console.WriteLine(message );
                 Console.WriteLine( message2);
-
-
-                //Console.ReadKey( );
+                
+                Console.ReadKey( );
                 Console.Clear();
             }
 
