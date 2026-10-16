@@ -10,6 +10,7 @@ namespace Tjuv_Polis
 
             string profession = "";
             List<Person> persons = new List<Person>();
+            List<Thief> jail = new List<Thief>();
 
             int Xdirection = 0;
             int Ydirection = 0;
@@ -44,9 +45,11 @@ namespace Tjuv_Polis
                 Console.WriteLine(profession);
                 
             }
-
+            
             while (true)
-            { 
+            {
+                List<Thief> theivesToJail = new List<Thief>();
+
                 for (int r = 0; r < city.GetLength(0); r++)
                 {
                     for (int c = 0; c < city.GetLength(1); c++)
@@ -57,6 +60,8 @@ namespace Tjuv_Polis
                 }
                 string message = "";
                 string message2 = "";
+                
+
 
                 foreach (Person person in persons)
                 {
@@ -77,6 +82,7 @@ namespace Tjuv_Polis
                                     police.ConfiscatedGoods.AddRange(thief.StolenGoods);
                                     thief.StolenGoods.Clear();
                                     message = "Polisen grep en tjuv och beslagtog alla stulna föremål.";
+                                    theivesToJail.Add(thief);
                                 }
 
                             }
@@ -94,7 +100,7 @@ namespace Tjuv_Polis
 
                                     citizen.Belongings.RemoveAt(randomIndex);
 
-                                    message = "Tjuven tog medborgarens" + item.Name;
+                                    message = "Tjuven tog medborgarens " + item.Name;
                                 }
 
                                
@@ -106,6 +112,12 @@ namespace Tjuv_Polis
                             }
                         }
                     }
+                }
+                foreach (Thief thief in theivesToJail)
+                {
+                    jail.Add(thief);
+                    persons.Remove(thief);
+
                 }
 
                 for (int row = 0; row < city.GetLength(0); row++)
@@ -206,12 +218,13 @@ namespace Tjuv_Polis
                 Console.WriteLine($"Antal poliser: {policeCount}");
                 Console.WriteLine($"Antal tjuvar: {thiefCount}");
                 Console.WriteLine($"Antal medborgare: {citizenCount}");
+                Console.WriteLine( "Antal tjuvar i fängelse:" + jail.Count);
                 Console.WriteLine("=========================================================");
 
                 Console.WriteLine(message );
                 Console.WriteLine( message2);
                 
-                Console.ReadKey( );
+               // Console.ReadKey( );
                 Console.Clear();
             }
 

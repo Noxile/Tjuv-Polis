@@ -54,6 +54,14 @@ namespace Tjuv_Polis
             Belongings.Add(new Item("Klocka"));
         }
     }
-     
+     class Jail : Thief
+    {
+        List<Thief> jailedThieves = new List<Thief>();
+        public Jail(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
+        {
+
+
+        }
+    }
 
 }
