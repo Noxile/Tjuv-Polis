@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Tjuv_Polis
 {
-    internal class Inventory
+    internal class Item
     {
         public string Name { get; set; }
-        public Inventory(string name)
+        public Item(string name)
         {
             Name = name;
         }

@@ -69,14 +69,39 @@ namespace Tjuv_Polis
                     {
                         if (person != otherPerson && person.X == otherPerson.X && person.Y == otherPerson.Y)
                         {
-                            if ((person is Police && otherPerson is Thief) ||(person is Thief && otherPerson is Police))
+                            if (person is Police police && otherPerson is Thief thief)
                             {
                                 city[person.Y, person.X] = "#";
-                                message = "TAGEN";
+                                if (thief.StolenGoods.Count > 0)
+                                {
+                                    police.ConfiscatedGoods.AddRange(thief.StolenGoods);
+                                    thief.StolenGoods.Clear();
+                                    message = "Polisen grep en tjuv och beslagtog alla stulna föremål.";
+                                }
+
                             }
-                            else if ((person is Thief && otherPerson is Citizen) || (person is Citizen && otherPerson is Thief))
+                            else if (person is Thief thief2 && otherPerson is Citizen citizen)
                             {
                                 city[person.Y, person.X] = "%";
+
+                                if (citizen.Belongings.Count > 0)
+                                {
+                                    int randomIndex = Random.Shared.Next(0, citizen.Belongings.Count);
+
+                                    Item item = citizen.Belongings[randomIndex];
+
+                                    thief2.StolenGoods.Add(citizen.Belongings[randomIndex]);
+
+                                    citizen.Belongings.RemoveAt(randomIndex);
+
+                                    message = "Tjuven tog medborgarens" + item.Name;
+                                }
+
+                               
+                            }
+                            else if (person is Police && otherPerson is Citizen)
+                            {
+                                city[person.Y, person.X] = "&";
                                 message2 = "HEJ HEJ";
                             }
                         }
@@ -99,15 +124,6 @@ namespace Tjuv_Polis
                         else
                         {
                             Console.Write(city[row, col]);
-
-                            //    if (city[row, col] != "")
-                            //    {
-                            //        Console.Write(city[row, col]);
-                            //    }
-                            //    else if (city[row, col] == "")
-                            //    {
-                            //        Console.Write(' ');
-                            //    }
                         }
                     }
 
@@ -168,7 +184,9 @@ namespace Tjuv_Polis
                 }
                 Console.WriteLine(message );
                 Console.WriteLine( message2);
-                Console.ReadKey( );
+
+
+                //Console.ReadKey( );
                 Console.Clear();
             }
 

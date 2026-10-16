@@ -28,7 +28,7 @@ namespace Tjuv_Polis
     }
     class Thief : Person
     {
-
+        public List<Item> StolenGoods { get; set; } = new List<Item>();
         public Thief(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
         {
 
@@ -38,14 +38,20 @@ namespace Tjuv_Polis
     }
     class Police : Person
     {
+        public List<Item> ConfiscatedGoods { get; set; } = new List<Item>();
         public Police(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
         {
         }
     }
     class Citizen : Person
     {
+        public List<Item> Belongings { get; set; } = new List<Item>();
         public Citizen(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
         {
+            Belongings.Add(new Item("Nycklar"));
+            Belongings.Add(new Item("Mobiltelefon"));
+            Belongings.Add(new Item("Pengar"));
+            Belongings.Add(new Item("Klocka"));
         }
     }
      
