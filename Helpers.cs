@@ -38,5 +38,47 @@ namespace Tjuv_Polis
             }
             return persons;
         }
+
+
+        public static void DrawCity(List<Person> persons, string[,] city)
+        {
+            for (int r = 0; r < city.GetLength(0); r++)
+            {
+                for (int c = 0; c < city.GetLength(1); c++)
+                {
+                    city[r, c] = " ";
+                }
+            }
+
+            foreach (Person person in persons)
+            {
+                city[person.Y, person.X] = person.Symbol.ToString();
+            }
+
+            for (int row = 0; row < city.GetLength(0); row++)
+            {
+
+                for (int col = 0; col < city.GetLength(1); col++)
+                {
+
+                    if (row == 0 || row == city.GetLength(0) - 1)
+                    {
+                        Console.Write("=");
+                    }
+                    else if (col == 0 || col == city.GetLength(1) - 1)
+                    {
+                        Console.Write("X");
+                    }
+                    else
+                    {
+                        Console.Write(city[row, col]);
+                    }
+                }
+
+                Console.WriteLine();
+
+            }
+        }
+
     }
 }
