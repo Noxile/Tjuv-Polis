@@ -18,7 +18,7 @@ namespace Tjuv_Polis
                 string message = "";
                 string message2 = "";
 
-                Helpers.DrawCity(persons, city);
+                Helpers.PrepareCity(persons, city);
 
                 foreach (Person person in persons)
                 {
@@ -29,13 +29,16 @@ namespace Tjuv_Polis
                             if (person is Police police && otherPerson is Thief thief)
                             {
                                 city[person.Y, person.X] = "#";
-                                if (thief.StolenGoods.Count > 0)
-                                {
-                                    police.ConfiscatedGoods.AddRange(thief.StolenGoods);
-                                    thief.StolenGoods.Clear();
-                                    message = "Polisen grep en tjuv och beslagtog alla stulna föremål.";
-                                    theivesToJail.Add(thief);
-                                }
+
+                                message = person.MeetPerson(otherPerson);
+
+                                //if (thief.StolenGoods.Count > 0)
+                                //{
+                                //    police.ConfiscatedGoods.AddRange(thief.StolenGoods);
+                                //    thief.StolenGoods.Clear();
+                                //    message = "Polisen grep en tjuv och beslagtog alla stulna föremål.";
+                                //    theivesToJail.Add(thief);
+                                //}
 
                             }
                             else if (person is Thief thief2 && otherPerson is Citizen citizen)
@@ -65,6 +68,9 @@ namespace Tjuv_Polis
                         }
                     }
                 }
+
+                Helpers.DrawCity(city);
+
                 foreach (Thief thief in theivesToJail)
                 {
                     jail.Add(thief);

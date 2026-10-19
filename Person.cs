@@ -25,6 +25,10 @@ namespace Tjuv_Polis
            
         }
 
+        public virtual string MeetPerson(Person otherPerson)
+        {
+            return "";
+        }
     }
     class Thief : Person
     {
@@ -41,6 +45,28 @@ namespace Tjuv_Polis
         public List<Item> ConfiscatedGoods { get; set; } = new List<Item>();
         public Police(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
         {
+        }
+
+        public override string MeetPerson(Person otherPerson)
+        {
+            if (otherPerson is Thief thief)
+            {
+                if (thief.StolenGoods.Count > 0)
+                {
+                    ConfiscatedGoods.AddRange(thief.StolenGoods);
+                    thief.StolenGoods.Clear();
+                    return "Polisen grep en tjuv och beslagtog alla stulna föremål.";
+                }
+                else
+                {
+                    return "Polisen möter en tjuv men fanns inget att beslagta.";
+                }
+            }
+            else
+            {
+                return "";
+            }
+
         }
     }
     class Citizen : Person
