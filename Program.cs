@@ -8,44 +8,9 @@ namespace Tjuv_Polis
         {
             string[,] city = new string[25, 100];
 
-            string profession = "";
-            List<Person> persons = new List<Person>();
+            List<Person> persons = Helpers.SkapaPerson();
             List<Thief> jail = new List<Thief>();
 
-            int Xdirection = 0;
-            int Ydirection = 0;
-            // Ska flyttas till egen metod
-            for (int i = 0; i < 50; i++)
-            {
-                int nr = Random.Shared.Next(0, 3);
-
-                int x = Random.Shared.Next(1, 99);
-                int y = Random.Shared.Next(1, 24);
-
-
-                switch (nr)
-                {
-                    case 0:
-                        profession = "Tjuv";
-                        Thief thief = new Thief(x, y, 'T', Xdirection, Ydirection);
-                        persons.Add(thief);
-                        break;
-                    case 1:
-                        profession = "Polis";
-                        Police police = new Police(x, y, 'P', Xdirection, Ydirection);
-                        persons.Add(police);
-                        break;
-                    case 2:
-                        profession = "Medborgare";
-                        Citizen citizen = new Citizen(x, y, 'C', Xdirection, Ydirection);
-                        persons.Add(citizen);
-                        break;
-                }
-
-                Console.WriteLine(profession);
-                
-            }
-            
             while (true)
             {
                 List<Thief> theivesToJail = new List<Thief>();
@@ -101,9 +66,9 @@ namespace Tjuv_Polis
                                     citizen.Belongings.RemoveAt(randomIndex);
 
                                     message = "Tjuven tog medborgarens " + item.Name;
+                                    
                                 }
 
-                               
                             }
                             else if (person is Police && otherPerson is Citizen)
                             {
@@ -117,7 +82,6 @@ namespace Tjuv_Polis
                 {
                     jail.Add(thief);
                     persons.Remove(thief);
-
                 }
 
                 for (int row = 0; row < city.GetLength(0); row++)
@@ -142,7 +106,6 @@ namespace Tjuv_Polis
                     Console.WriteLine();
                     
                 }
-                
                 foreach (Person person in persons)
                 {
                     person.Xdirection = 0;
@@ -221,10 +184,9 @@ namespace Tjuv_Polis
                 Console.WriteLine( "Antal tjuvar i fängelse:" + jail.Count);
                 Console.WriteLine("=========================================================");
 
-                Console.WriteLine(message );
-                Console.WriteLine( message2);
-                
-               // Console.ReadKey( );
+                Console.WriteLine(message);
+                Console.WriteLine(message2);
+                Console.ReadKey();
                 Console.Clear();
             }
 
