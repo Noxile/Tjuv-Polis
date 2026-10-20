@@ -30,33 +30,17 @@ namespace Tjuv_Polis
                                 city[person.Y, person.X] = "#";
 
                                 message = person.MeetPerson(otherPerson);
-                                jail.BustedPerson(thief, persons);
+                                jail.BustedPerson(thief);
 
-                                //jail.jailedThieves.Add(thief);
-                                //persons.Remove(thief);
-                                //jail.Prisoners++;
-                                
 
                             }
-                            else if (person is Thief thief2 && otherPerson is Citizen citizen)
+                            else if (person is Thief && otherPerson is Citizen)
                             {
                                 city[person.Y, person.X] = "%";
 
-                                if (citizen.Belongings.Count > 0)
-                                {
-                                    int randomIndex = Random.Shared.Next(0, citizen.Belongings.Count);
-
-                                    Item item = citizen.Belongings[randomIndex];
-
-                                    thief2.StolenGoods.Add(citizen.Belongings[randomIndex]);
-
-                                    citizen.Belongings.RemoveAt(randomIndex);
-
-                                    message = "Tjuven tog medborgarens " + item.Name;
-                                    
-                                }
-
+                                message = person.MeetPerson(otherPerson);
                             }
+
                             else if (person is Police && otherPerson is Citizen)
                             {
                                 city[person.Y, person.X] = "&";
@@ -66,13 +50,13 @@ namespace Tjuv_Polis
                     }
                 }
 
+                foreach (Thief thief in jail.JailedThieves)
+                {
+                    persons.Remove(thief);
+                }
+
                 Helpers.DrawCity(city);
 
-                //foreach (Thief thief in theivesToJail)
-                //{
-                //    jail.Add(thief);
-                //    persons.Remove(thief);
-                //}
 
                 foreach (Person person in persons)
                 {
@@ -149,7 +133,7 @@ namespace Tjuv_Polis
                 Console.WriteLine($"Antal poliser: {policeCount}");
                 Console.WriteLine($"Antal tjuvar: {thiefCount}");
                 Console.WriteLine($"Antal medborgare: {citizenCount}");
-                Console.WriteLine( "Antal tjuvar i fängelse:" + jail.jailedThieves.Count);
+                Console.WriteLine("Antal tjuvar i fängelset: " + jail.JailedThieves.Count);
                 Console.WriteLine("=========================================================");
 
                 Console.WriteLine(message);

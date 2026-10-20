@@ -39,6 +39,22 @@ namespace Tjuv_Polis
 
 
         }
+        public override string MeetPerson(Person otherPerson)
+        {
+            if (otherPerson is Citizen citizen && citizen.Belongings.Count > 0)
+            {
+                int randomIndex = Random.Shared.Next(0, citizen.Belongings.Count);
+
+                Item item = citizen.Belongings[randomIndex];
+
+                StolenGoods.Add(item);
+                citizen.Belongings.RemoveAt(randomIndex);
+
+                return "Thief stole the citizen's " + item.Name;
+            }
+
+            return "";
+        }
     }
     class Police : Person
     {
@@ -52,7 +68,7 @@ namespace Tjuv_Polis
             if (otherPerson is Thief thief && thief.StolenGoods.Count > 0)
             {
                 ConfiscatedGoods.AddRange(thief.StolenGoods);
-                thief.StolenGoods.Clear();
+                
                 return "Polisen grep en tjuv och beslagtog alla stulna föremål.";
             }
             else
@@ -73,25 +89,6 @@ namespace Tjuv_Polis
             Belongings.Add(new Item("Pengar"));
             Belongings.Add(new Item("Klocka"));
         }
-    }
-     class Jail
-    {
-        
-        public List<Thief> jailedThieves { get; set; } = new List<Thief>();
-        public Jail()
-        {
-            
-
-        }
-
-        public void BustedPerson(Thief thief, List<Person> persons)
-        {
-            jailedThieves.Add(thief);
-            persons.Remove(thief);
-            
-        }
-
-
     }
 
 }
