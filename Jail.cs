@@ -6,7 +6,7 @@ namespace Tjuv_Polis
 {
     internal class Jail
     {
-        public List<Thief> JailedThieves { get; set; } = new List<Thief>();
+        public List<Person> JailedThieves { get; set; } = new List<Person>();
 
         public void BustedPerson(Thief thief)
         {

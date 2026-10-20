@@ -50,7 +50,7 @@ namespace Tjuv_Polis
                 StolenGoods.Add(item);
                 citizen.Belongings.RemoveAt(randomIndex);
 
-                return "Thief stole the citizen's " + item.Name;
+                return "Tjuven stal medborgarens " + item.Name;
             }
 
             return "";
