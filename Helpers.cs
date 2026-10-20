@@ -84,18 +84,13 @@ namespace Tjuv_Polis
             }
         }
 
-        public static void MovePersons(List<Person> persons, string[,] city)
+        public static int MovePersons(int index, List<Person> persons, string[,] city)
         {
-            int index = 0;
-
             foreach (Person person in persons)
-            {
-                
-                //person.Xdirection = 0;
-                //person.Ydirection = 0;
-                int direction = Random.Shared.Next(1, 8);
-                if (index >= 10 || person.Xdirection == 0 )
+            { 
+                if (index == 0 )
                 {
+                    int direction = Random.Shared.Next(1, 8);
                     switch (direction)
                     {
                         case 1:
@@ -127,39 +122,9 @@ namespace Tjuv_Polis
                             person.Ydirection = -1;
                             break;
                     }
-                    
+
                 }
-                //switch (direction)
-                //{
-                //    case 1:
-                //        person.Xdirection = -1;
-                //        break;
-                //    case 2:
-                //        person.Xdirection = 1;
-                //        break;
-                //    case 3:
-                //        person.Ydirection = -1;
-                //        break;
-                //    case 4:
-                //        person.Ydirection = 1;
-                //        break;
-                //    case 5:
-                //        person.Xdirection = -1;
-                //        person.Ydirection = -1;
-                //        break;
-                //    case 6:
-                //        person.Xdirection = 1;
-                //        person.Ydirection = 1;
-                //        break;
-                //    case 7:
-                //        person.Xdirection = -1;
-                //        person.Ydirection = 1;
-                //        break;
-                //    case 8:
-                //        person.Xdirection = 1;
-                //        person.Ydirection = -1;
-                //        break;
-                //}
+
                 person.Y += person.Ydirection;
                 person.X += person.Xdirection;
                 if (person.X == city.GetLength(1) - 1)
@@ -178,8 +143,15 @@ namespace Tjuv_Polis
                 {
                     person.Y = city.GetLength(0) - 2;
                 }
-                index++;
+                
             }
+
+            index++;
+            if (index == 10)
+            {
+                index = 0;
+            }
+            return index;
         }
 
     }
