@@ -8,7 +8,7 @@ namespace Tjuv_Polis
         {
             string[,] city = new string[25, 100];
 
-            List<Person> persons = Helpers.SkapaPerson();
+            List<Person> persons = Helpers.CreatePerson();
             List<Thief> jail = new List<Thief>();
 
             while (true)

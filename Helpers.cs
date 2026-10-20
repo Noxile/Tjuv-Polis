@@ -6,7 +6,7 @@ namespace Tjuv_Polis
 {
     internal class Helpers
     {
-        public static List<Person> SkapaPerson()
+        public static List<Person> CreatePerson()
         {
             List<Person> persons = new List<Person>();
 

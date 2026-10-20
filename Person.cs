@@ -49,23 +49,17 @@ namespace Tjuv_Polis
 
         public override string MeetPerson(Person otherPerson)
         {
-            if (otherPerson is Thief thief)
+            if (otherPerson is Thief thief && thief.StolenGoods.Count > 0)
             {
-                if (thief.StolenGoods.Count > 0)
-                {
-                    ConfiscatedGoods.AddRange(thief.StolenGoods);
-                    thief.StolenGoods.Clear();
-                    return "Polisen grep en tjuv och beslagtog alla stulna föremål.";
-                }
-                else
-                {
-                    return "Polisen möter en tjuv men fanns inget att beslagta.";
-                }
+                ConfiscatedGoods.AddRange(thief.StolenGoods);
+                thief.StolenGoods.Clear();
+                return "Polisen grep en tjuv och beslagtog alla stulna föremål.";
             }
             else
             {
-                return "";
+                return "Polisen möter en tjuv men fanns inget att beslagta.";
             }
+
 
         }
     }
