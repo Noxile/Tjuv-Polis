@@ -58,18 +58,6 @@ namespace Tjuv_Polis
 
         public static void DrawCity(string[,] city)
         {
-            //for (int r = 0; r < city.GetLength(0); r++)
-            //{
-            //    for (int c = 0; c < city.GetLength(1); c++)
-            //    {
-            //        city[r, c] = " ";
-            //    }
-            //}
-
-            //foreach (Person person in persons)
-            //{
-            //    city[person.Y, person.X] = person.Symbol.ToString();
-            //}
 
             for (int row = 0; row < city.GetLength(0); row++)
             {
@@ -94,6 +82,11 @@ namespace Tjuv_Polis
                 Console.WriteLine();
 
             }
+        }
+
+        public static void BustedThieves()
+        {
+
         }
 
     }

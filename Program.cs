@@ -9,12 +9,11 @@ namespace Tjuv_Polis
             string[,] city = new string[25, 100];
 
             List<Person> persons = Helpers.CreatePerson();
-            List<Thief> jail = new List<Thief>();
+            Jail jail = new Jail();
 
             while (true)
             {
-                List<Thief> theivesToJail = new List<Thief>();
-
+                
                 string message = "";
                 string message2 = "";
 
@@ -31,14 +30,12 @@ namespace Tjuv_Polis
                                 city[person.Y, person.X] = "#";
 
                                 message = person.MeetPerson(otherPerson);
+                                jail.BustedPerson(thief, persons);
 
-                                //if (thief.StolenGoods.Count > 0)
-                                //{
-                                //    police.ConfiscatedGoods.AddRange(thief.StolenGoods);
-                                //    thief.StolenGoods.Clear();
-                                //    message = "Polisen grep en tjuv och beslagtog alla stulna föremål.";
-                                //    theivesToJail.Add(thief);
-                                //}
+                                //jail.jailedThieves.Add(thief);
+                                //persons.Remove(thief);
+                                //jail.Prisoners++;
+                                
 
                             }
                             else if (person is Thief thief2 && otherPerson is Citizen citizen)
@@ -71,11 +68,11 @@ namespace Tjuv_Polis
 
                 Helpers.DrawCity(city);
 
-                foreach (Thief thief in theivesToJail)
-                {
-                    jail.Add(thief);
-                    persons.Remove(thief);
-                }
+                //foreach (Thief thief in theivesToJail)
+                //{
+                //    jail.Add(thief);
+                //    persons.Remove(thief);
+                //}
 
                 foreach (Person person in persons)
                 {
@@ -152,7 +149,7 @@ namespace Tjuv_Polis
                 Console.WriteLine($"Antal poliser: {policeCount}");
                 Console.WriteLine($"Antal tjuvar: {thiefCount}");
                 Console.WriteLine($"Antal medborgare: {citizenCount}");
-                Console.WriteLine( "Antal tjuvar i fängelse:" + jail.Count);
+                Console.WriteLine( "Antal tjuvar i fängelse:" + jail.jailedThieves.Count);
                 Console.WriteLine("=========================================================");
 
                 Console.WriteLine(message);
