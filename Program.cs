@@ -12,6 +12,7 @@ namespace Tjuv_Polis
             int index = 0;
             List<Person> persons = Helpers.CreatePerson();
             Jail jail = new Jail();
+            string newPersonMessage = "";
 
             while (true)
             {
@@ -90,7 +91,12 @@ namespace Tjuv_Polis
 
                 Console.WriteLine(message);
                 Console.WriteLine(message2);
-                Console.ReadKey();
+                Console.WriteLine(newPersonMessage);
+                Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'");
+                ConsoleKey key = Console.ReadKey(true).Key;
+
+                newPersonMessage = Helpers.AddPerson(persons, key);
+                //Console.ReadKey();
                 Console.Clear();
             }
 
