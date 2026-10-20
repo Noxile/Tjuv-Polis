@@ -7,6 +7,8 @@ namespace Tjuv_Polis
         static void Main(string[] args)
         {
             string[,] city = new string[25, 100];
+
+            string[,] prison = new string[10, 40];
             int index = 0;
             List<Person> persons = Helpers.CreatePerson();
             Jail jail = new Jail();
@@ -17,7 +19,7 @@ namespace Tjuv_Polis
                 string message = "";
                 string message2 = "";
 
-                Helpers.PrepareCity(persons, city);
+                Helpers.PrepareCity(persons, city, prison);
 
                 foreach (Person person in persons)
                 {
@@ -54,7 +56,7 @@ namespace Tjuv_Polis
                     persons.Remove(thief);
                 }
 
-                Helpers.DrawCity(city);
+                Helpers.DrawCity(city, prison);
 
                 index = Helpers.MovePersons(index, persons,city);
                 

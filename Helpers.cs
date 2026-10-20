@@ -40,7 +40,7 @@ namespace Tjuv_Polis
         }
 
 
-        public static void PrepareCity(List<Person> persons, string[,] city)
+        public static void PrepareCity(List<Person> persons, string[,] city, string[,] prison)
         {
             for (int r = 0; r < city.GetLength(0); r++)
             {
@@ -50,13 +50,21 @@ namespace Tjuv_Polis
                 }
             }
 
+            for (int r = 0; r < prison.GetLength(0); r++)
+            {
+                for (int c = 0; c < prison.GetLength(1); c++)
+                {
+                    prison[r, c] = " ";
+                }
+            }
+
             foreach (Person person in persons)
             {
                 city[person.Y, person.X] = person.Symbol.ToString();
             }
         }
 
-        public static void DrawCity(string[,] city)
+        public static void DrawCity(string[,] city, string[,] prison)
         {
 
             for (int row = 0; row < city.GetLength(0); row++)
@@ -82,6 +90,33 @@ namespace Tjuv_Polis
                 Console.WriteLine();
 
             }
+
+            for (int row = 0; row < prison.GetLength(0); row++)
+            {
+
+                for (int col = 0; col < prison.GetLength(1); col++)
+                {
+
+                    if (row == 0 || row == prison.GetLength(0) - 1)
+                    {
+                        Console.Write("=");
+                    }
+                    else if (col == 0 || col == prison.GetLength(1) - 1)
+                    {
+                        Console.Write("X");
+                    }
+                    else
+                    {
+                        Console.Write(prison[row, col]);
+                    }
+                }
+
+                Console.WriteLine();
+
+            }
+
+
+
         }
 
         public static int MovePersons(int index, List<Person> persons, string[,] city)
