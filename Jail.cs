@@ -13,8 +13,9 @@ namespace Tjuv_Polis
             if (thief.StolenGoods.Count > 0)
             {
                 JailedThieves.Add(thief);
-                
                 thief.StolenGoods.Clear();
+                thief.X = 1;
+                thief.Y = 1;
             }
         }
     }

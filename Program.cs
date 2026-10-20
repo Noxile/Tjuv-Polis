@@ -19,7 +19,7 @@ namespace Tjuv_Polis
                 string message = "";
                 string message2 = "";
 
-                Helpers.PrepareCity(persons, city, prison);
+                Helpers.PrepareCity(persons, city, prison, jail);
 
                 foreach (Person person in persons)
                 {
@@ -33,6 +33,7 @@ namespace Tjuv_Polis
 
                                 message = person.MeetPerson(otherPerson);
                                 jail.BustedPerson(thief);
+
 
                             }
                             else if (person is Thief && otherPerson is Citizen)
@@ -58,7 +59,7 @@ namespace Tjuv_Polis
 
                 Helpers.DrawCity(city, prison);
 
-                index = Helpers.MovePersons(index, persons,city);
+                index = Helpers.MovePersons(index, persons,city, prison, jail);
                 
 
                 int policeCount = 0;

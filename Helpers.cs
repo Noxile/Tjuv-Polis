@@ -40,7 +40,7 @@ namespace Tjuv_Polis
         }
 
 
-        public static void PrepareCity(List<Person> persons, string[,] city, string[,] prison)
+        public static void PrepareCity(List<Person> persons, string[,] city, string[,] prison, Jail jail)
         {
             for (int r = 0; r < city.GetLength(0); r++)
             {
@@ -61,6 +61,11 @@ namespace Tjuv_Polis
             foreach (Person person in persons)
             {
                 city[person.Y, person.X] = person.Symbol.ToString();
+            }
+
+            foreach(Person person in jail.JailedThieves)
+            {
+                prison[person.Y, person.X] = person.Symbol.ToString();
             }
         }
 
@@ -114,12 +119,9 @@ namespace Tjuv_Polis
                 Console.WriteLine();
 
             }
-
-
-
         }
 
-        public static int MovePersons(int index, List<Person> persons, string[,] city)
+        public static int MovePersons(int index, List<Person> persons, string[,] city, string[,] prison, Jail jail)
         {
             foreach (Person person in persons)
             { 
@@ -159,9 +161,9 @@ namespace Tjuv_Polis
                     }
 
                 }
-
                 person.Y += person.Ydirection;
                 person.X += person.Xdirection;
+
                 if (person.X == city.GetLength(1) - 1)
                 {
                     person.X = 1;
@@ -178,7 +180,7 @@ namespace Tjuv_Polis
                 {
                     person.Y = city.GetLength(0) - 2;
                 }
-                
+
             }
 
             index++;
