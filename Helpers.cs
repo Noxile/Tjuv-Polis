@@ -125,7 +125,7 @@ namespace Tjuv_Polis
             { 
                 if (index == 0 )
                 {
-                    int direction = Random.Shared.Next(1, 8);
+                    int direction = Random.Shared.Next(1, 9);
                     switch (direction)
                     {
                         case 1:
@@ -187,6 +187,32 @@ namespace Tjuv_Polis
                 index = 0;
             }
             return index;
+        }
+
+        public static string AddPerson(List<Person> persons, ConsoleKey key)
+        {
+            int x  = Random.Shared.Next(1, 99);
+            int y = Random.Shared.Next(1, 24);
+
+            int Xdirection = 0;
+            int Ydirection = 0;
+
+            switch(key)
+            {
+                case ConsoleKey.T:
+                    persons.Add(new Thief(x, y, 'T', Xdirection, Ydirection));
+                    return "En ny tjuv har anlänt till staden!";
+
+                case ConsoleKey.P:
+                    persons.Add(new Police(x, y, 'P', Xdirection, Ydirection));
+                    return "En ny polis har anlänt till staden!";
+
+                case ConsoleKey.C:
+                    persons.Add(new Citizen(x, y, 'C', Xdirection, Ydirection));
+                    return "En ny medborgare har anlänt till staden!";
+            }
+
+            return "";
         }
 
     }
