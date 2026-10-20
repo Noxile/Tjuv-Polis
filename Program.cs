@@ -57,58 +57,59 @@ namespace Tjuv_Polis
 
                 Helpers.DrawCity(city);
 
+                Helpers.MovePersons(persons,city);
 
-                foreach (Person person in persons)
-                {
-                    person.Xdirection = 0;
-                    person.Ydirection = 0;
+                //foreach (Person person in persons)
+                //{
+                //    person.Xdirection = 0;
+                //    person.Ydirection = 0;
 
-                    int choosenNr = Random.Shared.Next(0, 6);
+                //    int choosenNr = Random.Shared.Next(0, 6);
 
-                    switch (choosenNr)
-                    {
-                        case 0:
-                            person.Xdirection = -1;
-                            break;
-                        case 1:
-                            person.Ydirection = -1;
-                            break;
-                        case 2:
-                            person.Xdirection = 1;
-                            break;
-                        case 3:
-                            person.Ydirection = 1;
-                            break;
-                        case 4:
-                            person.Xdirection = -1;
-                            person.Ydirection = -1;
-                            break;
-                        case 5:
-                            person.Xdirection = 1;
-                            person.Ydirection = 1;
-                            break;
-                    }
+                //    switch (choosenNr)
+                //    {
+                //        case 0:
+                //            person.Xdirection = -1;
+                //            break;
+                //        case 1:
+                //            person.Ydirection = -1;
+                //            break;
+                //        case 2:
+                //            person.Xdirection = 1;
+                //            break;
+                //        case 3:
+                //            person.Ydirection = 1;
+                //            break;
+                //        case 4:
+                //            person.Xdirection = -1;
+                //            person.Ydirection = -1;
+                //            break;
+                //        case 5:
+                //            person.Xdirection = 1;
+                //            person.Ydirection = 1;
+                //            break;
+                //    }
 
-                    person.Y += person.Ydirection;
-                    person.X += person.Xdirection;
-                    
-                    if (person.X == city.GetLength(1) - 1)
-                    {
-                        person.X = 1;
-                    }
-                    if (person.Y == city.GetLength(0) - 1)
-                    {
-                        person.Y = 1;
-                    }
-                    if (person.X == 0)
-                    {
-                        person.X = city.GetLength(1) - 2;
-                    }
-                    if (person.Y == 0)
-                    {
-                        person.Y = city.GetLength(0) - 2;
-                    }
-                }
+                //    person.Y += person.Ydirection;
+                //    person.X += person.Xdirection;
+
+                //    if (person.X == city.GetLength(1) - 1)
+                //    {
+                //        person.X = 1;
+                //    }
+                //    if (person.Y == city.GetLength(0) - 1)
+                //    {
+                //        person.Y = 1;
+                //    }
+                //    if (person.X == 0)
+                //    {
+                //        person.X = city.GetLength(1) - 2;
+                //    }
+                //    if (person.Y == 0)
+                //    {
+                //        person.Y = city.GetLength(0) - 2;
+                //    }
+                //}
 
                 int policeCount = 0;
                 int thiefCount = 0;

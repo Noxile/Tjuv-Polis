@@ -84,9 +84,102 @@ namespace Tjuv_Polis
             }
         }
 
-        public static void BustedThieves()
+        public static void MovePersons(List<Person> persons, string[,] city)
         {
+            int index = 0;
 
+            foreach (Person person in persons)
+            {
+                
+                //person.Xdirection = 0;
+                //person.Ydirection = 0;
+                int direction = Random.Shared.Next(1, 8);
+                if (index >= 10 || person.Xdirection == 0 )
+                {
+                    switch (direction)
+                    {
+                        case 1:
+                            person.Xdirection = -1;
+                            break;
+                        case 2:
+                            person.Xdirection = 1;
+                            break;
+                        case 3:
+                            person.Ydirection = -1;
+                            break;
+                        case 4:
+                            person.Ydirection = 1;
+                            break;
+                        case 5:
+                            person.Xdirection = -1;
+                            person.Ydirection = -1;
+                            break;
+                        case 6:
+                            person.Xdirection = 1;
+                            person.Ydirection = 1;
+                            break;
+                        case 7:
+                            person.Xdirection = -1;
+                            person.Ydirection = 1;
+                            break;
+                        case 8:
+                            person.Xdirection = 1;
+                            person.Ydirection = -1;
+                            break;
+                    }
+                    
+                }
+                //switch (direction)
+                //{
+                //    case 1:
+                //        person.Xdirection = -1;
+                //        break;
+                //    case 2:
+                //        person.Xdirection = 1;
+                //        break;
+                //    case 3:
+                //        person.Ydirection = -1;
+                //        break;
+                //    case 4:
+                //        person.Ydirection = 1;
+                //        break;
+                //    case 5:
+                //        person.Xdirection = -1;
+                //        person.Ydirection = -1;
+                //        break;
+                //    case 6:
+                //        person.Xdirection = 1;
+                //        person.Ydirection = 1;
+                //        break;
+                //    case 7:
+                //        person.Xdirection = -1;
+                //        person.Ydirection = 1;
+                //        break;
+                //    case 8:
+                //        person.Xdirection = 1;
+                //        person.Ydirection = -1;
+                //        break;
+                //}
+                person.Y += person.Ydirection;
+                person.X += person.Xdirection;
+                if (person.X == city.GetLength(1) - 1)
+                {
+                    person.X = 1;
+                }
+                if (person.Y == city.GetLength(0) - 1)
+                {
+                    person.Y = 1;
+                }
+                if (person.X == 0)
+                {
+                    person.X = city.GetLength(1) - 2;
+                }
+                if (person.Y == 0)
+                {
+                    person.Y = city.GetLength(0) - 2;
+                }
+                index++;
+            }
         }
 
     }
