@@ -15,6 +15,8 @@ namespace Tjuv_Polis
             int index = 0;
             List<Person> persons = Helpers.CreatePerson();
             Jail jail = new Jail();
+
+            PoorHouse poorhouse1 = new PoorHouse();
             string newPersonMessage = "";
 
             while (true)
@@ -23,8 +25,9 @@ namespace Tjuv_Polis
                 string message = "";
                 string message2 = "";
 
-                Helpers.PrepareCity(persons, city, jail);
-                Helpers.PrepareCity(jail.JailedThieves, prison, jail);
+                Helpers.PrepareCity(persons, city);
+                Helpers.PrepareCity(jail.JailedThieves, prison);
+                Helpers.PrepareCity(poorhouse1.PoorPeople, poorhouse);
 
                 foreach (Person person in persons)
                 {
@@ -55,11 +58,21 @@ namespace Tjuv_Polis
                             }
                         }
                     }
+
+                    if(person is Citizen citizen)
+                    {
+                        poorhouse1.PoorPerson(citizen);
+                    }
                 }
 
                 foreach (Thief thief in jail.JailedThieves)
                 {
                     persons.Remove(thief);
+                }
+
+                foreach(Citizen citizen1 in poorhouse1.PoorPeople)
+                {
+                    persons.Remove(citizen1);
                 }
 
                 Helpers.DrawCity(city);
@@ -68,7 +81,7 @@ namespace Tjuv_Polis
 
                 index = Helpers.MovePersons(index, persons, city);
                 Helpers.MovePersons(index, jail.JailedThieves, prison);
-
+                Helpers.MovePersons(index, poorhouse1.PoorPeople, poorhouse);
 
                 int policeCount = 0;
                 int thiefCount = 0;

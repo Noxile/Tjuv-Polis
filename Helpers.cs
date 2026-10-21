@@ -10,7 +10,7 @@ namespace Tjuv_Polis
         {
             List<Person> persons = new List<Person>();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 80; i++)
             {
                 int nr = Random.Shared.Next(0, 3);
 
@@ -40,7 +40,7 @@ namespace Tjuv_Polis
         }
 
 
-        public static void PrepareCity(List<Person> persons, string[,] city, Jail jail)
+        public static void PrepareCity(List<Person> persons, string[,] city)
         {
             for (int r = 0; r < city.GetLength(0); r++)
             {
