@@ -15,7 +15,6 @@ namespace Tjuv_Polis
 
             Queue<string> queue = new Queue<string>();
 
-            Stack<string> stack = new Stack<string>();
 
             int index = 0;
 
@@ -46,7 +45,6 @@ namespace Tjuv_Polis
 
                                 message = person.MeetPerson(otherPerson);
                                 queue.Enqueue(message);
-                                stack.Push(message);
 
                                 jail.BustedPerson(thief);
 
@@ -58,7 +56,6 @@ namespace Tjuv_Polis
 
                                 message = person.MeetPerson(otherPerson);
                                 queue.Enqueue(message);
-                                stack.Push(message);
                             }
 
                             else if (person is Police && otherPerson is Citizen)
@@ -66,7 +63,6 @@ namespace Tjuv_Polis
                                 city[person.Y, person.X] = "&";
                                 message = "HEJ HEJ";
                                 queue.Enqueue(message);
-                                stack.Push(message);
                             }
                         }
                     }
@@ -82,7 +78,23 @@ namespace Tjuv_Polis
                     persons.Remove(thief);
                 }
 
-                foreach(Citizen citizen1 in poorhouse1.PoorPeople)
+                for (int i = jail.JailedThieves.Count - 1; i >= 0; i--)
+                {
+                    Thief thief = (Thief)jail.JailedThieves[i];
+
+                    if (DateTime.Now >= thief.ReleaseTime)
+                    {
+                        jail.JailedThieves.Remove(thief);
+
+                        thief.X = 1;
+                        thief.Y = 1;
+
+                        persons.Add(thief);
+                    }
+                }
+
+
+                foreach (Citizen citizen1 in poorhouse1.PoorPeople)
                 {
                     persons.Remove(citizen1);
                 }

@@ -12,9 +12,9 @@ namespace Tjuv_Polis
         {
             if (thief.StolenGoods.Count > 0)
             {
-                JailedThieves.Add(thief);
+                thief.ReleaseTime = DateTime.Now.AddSeconds(thief.StolenGoods.Count * 10);
 
-                // thief.JailTime = thief.StolenGoods.Count * 10; ;
+                JailedThieves.Add(thief);
 
                 thief.StolenGoods.Clear();
                 thief.X = 1;
