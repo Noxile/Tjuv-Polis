@@ -24,10 +24,12 @@ namespace Tjuv_Polis
             PoorHouse poorhouse1 = new PoorHouse();
             string newPersonMessage = "";
 
+            Console.CursorVisible = false;
+
             while (true)
             {
 
-                string message;
+                string message = null;
 
                 Helpers.PrepareCity(persons, city);
                 Helpers.PrepareCity(jail.JailedThieves, prison);
@@ -133,11 +135,11 @@ namespace Tjuv_Polis
                 Console.WriteLine("Antal tjuvar i fängelset: " + jail.JailedThieves.Count);
                 Console.WriteLine("=========================================================");
 
+
                 while (queue.Count > 10)
                 {
                     queue.Dequeue();
                 }
-
                 if (queue.Count > 0)
                 {
                     foreach (var msg in queue.Reverse())
@@ -149,20 +151,26 @@ namespace Tjuv_Polis
                 Console.WriteLine(newPersonMessage);
                 Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'");
 
-                ConsoleKey key = Console.ReadKey(true).Key;
+                if (message != null)
+                {
+                    Thread.Sleep(2000);
+                }
 
-                newPersonMessage = Helpers.AddPerson(persons, key);
+                //ConsoleKey key = Console.ReadKey(true).Key;
 
-                //if (Console.KeyAvailable)
-                //{
-                //    ConsoleKey key = Console.ReadKey(true).Key;
+                //newPersonMessage = Helpers.AddPerson(persons, key);
 
-                //    newPersonMessage = Helpers.AddPerson(persons, key);
-                //}
-                //else
-                //{
-                //    Thread.Sleep(200);
-                //}
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKey key = Console.ReadKey(true).Key;
+
+                    newPersonMessage = Helpers.AddPerson(persons, key);
+                }
+                else
+                {
+                    Thread.Sleep(200);
+                }
+
 
 
                 //Console.ReadKey();

@@ -19,7 +19,7 @@ namespace Tjuv_Polis
 
                 int Xdirection = 0;
                 int Ydirection = 0;
-
+                
                 switch (nr)
                 {
                     case 0:
