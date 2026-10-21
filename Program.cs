@@ -148,9 +148,23 @@ namespace Tjuv_Polis
 
                 Console.WriteLine(newPersonMessage);
                 Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'");
+
                 ConsoleKey key = Console.ReadKey(true).Key;
 
                 newPersonMessage = Helpers.AddPerson(persons, key);
+
+                //if (Console.KeyAvailable)
+                //{
+                //    ConsoleKey key = Console.ReadKey(true).Key;
+
+                //    newPersonMessage = Helpers.AddPerson(persons, key);
+                //}
+                //else
+                //{
+                //    Thread.Sleep(200);
+                //}
+
+
                 //Console.ReadKey();
                 Console.Clear();
             }
