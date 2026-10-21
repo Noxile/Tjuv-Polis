@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Collections;
+using System.Net.Http.Headers;
 
 namespace Tjuv_Polis
 {
@@ -12,7 +13,12 @@ namespace Tjuv_Polis
 
             string[,] poorhouse = new string[10, 50];
 
+            Queue<string> queue = new Queue<string>();
+
+            Stack<string> stack = new Stack<string>();
+
             int index = 0;
+
             List<Person> persons = Helpers.CreatePerson();
             Jail jail = new Jail();
 
@@ -21,9 +27,8 @@ namespace Tjuv_Polis
 
             while (true)
             {
-                
-                string message = "";
-                string message2 = "";
+
+                string message;
 
                 Helpers.PrepareCity(persons, city);
                 Helpers.PrepareCity(jail.JailedThieves, prison);
@@ -40,6 +45,9 @@ namespace Tjuv_Polis
                                 city[person.Y, person.X] = "#";
 
                                 message = person.MeetPerson(otherPerson);
+                                queue.Enqueue(message);
+                                stack.Push(message);
+
                                 jail.BustedPerson(thief);
 
 
@@ -49,12 +57,16 @@ namespace Tjuv_Polis
                                 city[person.Y, person.X] = "%";
 
                                 message = person.MeetPerson(otherPerson);
+                                queue.Enqueue(message);
+                                stack.Push(message);
                             }
 
                             else if (person is Police && otherPerson is Citizen)
                             {
                                 city[person.Y, person.X] = "&";
-                                message2 = "HEJ HEJ";
+                                message = "HEJ HEJ";
+                                queue.Enqueue(message);
+                                stack.Push(message);
                             }
                         }
                     }
@@ -109,8 +121,19 @@ namespace Tjuv_Polis
                 Console.WriteLine("Antal tjuvar i fängelset: " + jail.JailedThieves.Count);
                 Console.WriteLine("=========================================================");
 
-                Console.WriteLine(message);
-                Console.WriteLine(message2);
+                while (queue.Count > 10)
+                {
+                    queue.Dequeue();
+                }
+
+                if (queue.Count > 0)
+                {
+                    foreach (var msg in queue.Reverse())
+                    {
+                        Console.WriteLine(msg);
+                    }
+                }
+
                 Console.WriteLine(newPersonMessage);
                 Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'");
                 ConsoleKey key = Console.ReadKey(true).Key;
