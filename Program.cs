@@ -28,11 +28,10 @@ namespace Tjuv_Polis
             string newPersonMessage = "";
 
             Console.CursorVisible = false;
-            
+            bool systemLog = false;
 
             while (true)
             {
-
                 string message = null;
 
                 Helpers.PrepareCity(persons, city);
@@ -106,19 +105,43 @@ namespace Tjuv_Polis
                 }
                 Console.SetCursorPosition(0, 0);
 
-                bool systemLog = false;
+
+
+                Console.SetCursorPosition(0, 0);
+
                 if (!systemLog)
                 {
                     Helpers.DrawCity(city);
                     Helpers.DrawCity(prison);
                     Helpers.DrawCity(poorhouse);
-
                 }
-                else if (systemLog)
+                else
                 {
-                    
+                    Console.Clear();
+                    Console.WriteLine("========== PERSONER I STADEN ==========");
+
+                    int personIndex = 1;
+
+                    foreach (Person person in persons)
+                    {
+                        if (person is Thief)
+                        {
+                            Console.WriteLine("Person " + personIndex + ": Tjuv - " + person.X + ", " + person.Y);
+                        }
+                        else if (person is Police)
+                        {
+                            Console.WriteLine("Person " + personIndex + ": Polis - " + person.X + ", " + person.Y);
+                        }
+                        else if (person is Citizen)
+                        {
+                            Console.WriteLine("Person " + personIndex + ": Medborgare - " + person.X + ", " + person.Y);
+                        }
+
+                        personIndex++;
+                    }
                 }
-                
+
+
 
 
 
@@ -174,30 +197,22 @@ namespace Tjuv_Polis
                     Thread.Sleep(2000);
                 }
 
-                //ConsoleKey key = Console.ReadKey(true).Key;
-
-                //newPersonMessage = Helpers.AddPerson(persons, key);
-
                 if (Console.KeyAvailable)
                 {
                     ConsoleKey key = Console.ReadKey(true).Key;
 
-                    newPersonMessage = Helpers.AddPerson(persons, key);
-
-                    queue.Enqueue(newPersonMessage);
-
-                    ConsoleKey consoleKey = Console.ReadKey().Key;
-                    if(consoleKey == ConsoleKey.G)
+                    if (key == ConsoleKey.G)
                     {
-                        if (!systemLog)
+                        systemLog = !systemLog;
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        newPersonMessage = Helpers.AddPerson(persons, key);
+
+                        if (newPersonMessage != "")
                         {
-                            systemLog = true;
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            systemLog = false;
-                            Console.Clear();
+                            queue.Enqueue(newPersonMessage);
                         }
                     }
                 }
@@ -206,10 +221,11 @@ namespace Tjuv_Polis
                     Thread.Sleep(200);
                 }
 
+                //ConsoleKey key = Console.ReadKey(true).Key;
+
+                //newPersonMessage = Helpers.AddPerson(persons, key);
 
 
-                //Console.ReadKey();
-              
             }
 
 
