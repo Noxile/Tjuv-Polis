@@ -7,6 +7,8 @@ namespace Tjuv_Polis
     {
         static void Main(string[] args)
         {
+           
+
             string[,] city = new string[25, 100];
 
             string[,] prison = new string[10, 20];
@@ -25,6 +27,7 @@ namespace Tjuv_Polis
             string newPersonMessage = "";
 
             Console.CursorVisible = false;
+            
 
             while (true)
             {
@@ -100,7 +103,7 @@ namespace Tjuv_Polis
                 {
                     persons.Remove(citizen1);
                 }
-
+                Console.SetCursorPosition(0, 0);
                 Helpers.DrawCity(city);
                 Helpers.DrawCity(prison);
                 Helpers.DrawCity(poorhouse);
@@ -129,9 +132,9 @@ namespace Tjuv_Polis
                         citizenCount++;
                     }
                 }
-                Console.WriteLine($"Antal poliser: {policeCount}");
-                Console.WriteLine($"Antal tjuvar: {thiefCount}");
-                Console.WriteLine($"Antal medborgare: {citizenCount}");
+                Console.WriteLine($"Antal poliser: {policeCount}".PadRight(Console.WindowWidth - 1));
+                Console.WriteLine($"Antal tjuvar: {thiefCount}".PadRight(Console.WindowWidth - 1));
+                Console.WriteLine($"Antal medborgare: {citizenCount}".PadRight(Console.WindowWidth - 1));
                 Console.WriteLine("Antal tjuvar i fängelset: " + jail.JailedThieves.Count);
                 Console.WriteLine("=========================================================");
 
@@ -144,7 +147,7 @@ namespace Tjuv_Polis
                 {
                     foreach (var msg in queue.Reverse())
                     {
-                        Console.WriteLine(msg);
+                        Console.WriteLine(msg.PadRight(Console.WindowWidth - 1));
                     }
                 }
 
@@ -174,7 +177,7 @@ namespace Tjuv_Polis
 
 
                 //Console.ReadKey();
-                Console.Clear();
+              
             }
 
 
