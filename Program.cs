@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel.Design;
 using System.Net.Http.Headers;
 
 namespace Tjuv_Polis
@@ -104,9 +105,23 @@ namespace Tjuv_Polis
                     persons.Remove(citizen1);
                 }
                 Console.SetCursorPosition(0, 0);
-                Helpers.DrawCity(city);
-                Helpers.DrawCity(prison);
-                Helpers.DrawCity(poorhouse);
+
+                bool systemLog = false;
+                if (!systemLog)
+                {
+                    Helpers.DrawCity(city);
+                    Helpers.DrawCity(prison);
+                    Helpers.DrawCity(poorhouse);
+
+                }
+                else if (systemLog)
+                {
+                    
+                }
+                
+
+
+
 
                 index = Helpers.MovePersons(index, persons, city);
                 Helpers.MovePersons(index, jail.JailedThieves, prison);
@@ -151,7 +166,7 @@ namespace Tjuv_Polis
                     }
                 }
 
-                Console.WriteLine(newPersonMessage);
+                //Console.WriteLine(newPersonMessage);
                 Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'");
 
                 if (message != null)
@@ -168,6 +183,23 @@ namespace Tjuv_Polis
                     ConsoleKey key = Console.ReadKey(true).Key;
 
                     newPersonMessage = Helpers.AddPerson(persons, key);
+
+                    queue.Enqueue(newPersonMessage);
+
+                    ConsoleKey consoleKey = Console.ReadKey().Key;
+                    if(consoleKey == ConsoleKey.G)
+                    {
+                        if (!systemLog)
+                        {
+                            systemLog = true;
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            systemLog = false;
+                            Console.Clear();
+                        }
+                    }
                 }
                 else
                 {
