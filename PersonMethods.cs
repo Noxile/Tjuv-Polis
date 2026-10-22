@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tjuv_Polis
 {
-    internal class Helpers
+    internal class PersonMethods
     {
         public static List<Person> CreatePerson()
         {
@@ -19,7 +19,7 @@ namespace Tjuv_Polis
 
                 int Xdirection = 0;
                 int Ydirection = 0;
-                
+
                 switch (nr)
                 {
                     case 0:
@@ -39,61 +39,11 @@ namespace Tjuv_Polis
             return persons;
         }
 
-
-        public static void PrepareCity(List<Person> persons, string[,] city)
-        {
-            for (int r = 0; r < city.GetLength(0); r++)
-            {
-                for (int c = 0; c < city.GetLength(1); c++)
-                {
-                    city[r, c] = " ";
-                }
-            }
-
-            foreach (Person person in persons)
-            {
-                city[person.Y, person.X] = person.Symbol.ToString();
-            }
-        }
-
-        public static void DrawCity(string[,] city, string building)
-        {
-
-            for (int row = 0; row < city.GetLength(0); row++)
-            {
-
-                for (int col = 0; col < city.GetLength(1); col++)
-                {
-                    if(row  == 0 && col == 1)
-                    {
-                        Console.Write(building);
-                        col = col + building.Length-1;
-
-                    }
-                    else if (row == 0 || row == city.GetLength(0) - 1)
-                    {
-                        Console.Write("=");
-                    }
-                    else if (col == 0 || col == city.GetLength(1) - 1)
-                    {
-                        Console.Write("X");
-                    }
-                    else
-                    {
-                        Console.Write(city[row, col]);
-                    }
-                }
-
-                Console.WriteLine();
-
-            }
-        }
-
         public static int MovePersons(int index, List<Person> persons, string[,] city)
         {
             foreach (Person person in persons)
-            { 
-                if (index == 0 )
+            {
+                if (index == 0)
                 {
                     int direction = Random.Shared.Next(1, 9);
                     switch (direction)
@@ -161,13 +111,13 @@ namespace Tjuv_Polis
 
         public static string AddPerson(List<Person> persons, ConsoleKey key)
         {
-            int x  = Random.Shared.Next(1, 99);
+            int x = Random.Shared.Next(1, 99);
             int y = Random.Shared.Next(1, 24);
 
             int Xdirection = 0;
             int Ydirection = 0;
 
-            switch(key)
+            switch (key)
             {
                 case ConsoleKey.T:
                     persons.Add(new Thief(x, y, 'T', Xdirection, Ydirection));
@@ -185,5 +135,31 @@ namespace Tjuv_Polis
             return "";
         }
 
+        public static void CountPeople(List<Person> persons)
+        {
+            int policeCount = 0;
+            int thiefCount = 0;
+            int citizenCount = 0;
+
+            foreach (Person person in persons)
+            {
+
+                if (person is Police)
+                {
+                    policeCount++;
+                }
+                else if (person is Thief)
+                {
+                    thiefCount++;
+                }
+                else if (person is Citizen)
+                {
+                    citizenCount++;
+                }
+            }
+            Console.WriteLine($"Antal poliser: {policeCount}".PadRight(Console.WindowWidth - 1));
+            Console.WriteLine($"Antal tjuvar: {thiefCount}".PadRight(Console.WindowWidth - 1));
+            Console.WriteLine($"Antal medborgare: {citizenCount}".PadRight(Console.WindowWidth - 1));
+        }
     }
 }

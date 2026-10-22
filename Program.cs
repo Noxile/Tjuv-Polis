@@ -20,11 +20,14 @@ namespace Tjuv_Polis
 
 
             int index = 0;
+            int robbedPeople = 0;
+            int arrestedThieves = 0;
+            int amountOfHello = 0;
 
-            List<Person> persons = Helpers.CreatePerson();
+            List<Person> persons = PersonMethods.CreatePerson();
             Jail jail = new Jail();
 
-            PoorHouse poorhouse1 = new PoorHouse();
+            PoorHouse house = new PoorHouse();
             string newPersonMessage = "";
 
             Console.CursorVisible = false;
@@ -34,9 +37,9 @@ namespace Tjuv_Polis
             {
                 string message = null;
 
-                Helpers.PrepareCity(persons, city);
-                Helpers.PrepareCity(jail.JailedThieves, prison);
-                Helpers.PrepareCity(poorhouse1.PoorPeople, poorhouse);
+                CityMethods.PrepareCity(persons, city);
+                CityMethods.PrepareCity(jail.JailedThieves, prison);
+                CityMethods.PrepareCity(house.PoorPeople, poorhouse);
 
                 foreach (Person person in persons)
                 {
@@ -51,7 +54,7 @@ namespace Tjuv_Polis
                                 message = person.MeetPerson(otherPerson);
                                 queue.Enqueue(message);
 
-                                jail.BustedPerson(thief);
+                                arrestedThieves = jail.BustedPerson(thief, arrestedThieves);
 
 
                             }
@@ -61,20 +64,22 @@ namespace Tjuv_Polis
 
                                 message = person.MeetPerson(otherPerson);
                                 queue.Enqueue(message);
+                                robbedPeople++;
                             }
 
                             else if (person is Police && otherPerson is Citizen)
                             {
                                 city[person.Y, person.X] = "&";
-                                message = "HEJ HEJ";
+                                message = "Polisen säger HEJ HEJ till medborgaren";
                                 queue.Enqueue(message);
+                                amountOfHello++;
                             }
                         }
                     }
 
                     if(person is Citizen citizen)
                     {
-                        poorhouse1.PoorPerson(citizen);
+                        house.PoorPerson(citizen);
                     }
                 }
 
@@ -99,21 +104,19 @@ namespace Tjuv_Polis
                 }
 
 
-                foreach (Citizen citizen1 in poorhouse1.PoorPeople)
+                foreach (Citizen citizen1 in house.PoorPeople)
                 {
                     persons.Remove(citizen1);
                 }
-                Console.SetCursorPosition(0, 0);
-
-
 
                 Console.SetCursorPosition(0, 0);
+
 
                 if (!systemLog)
                 {
-                    Helpers.DrawCity(city, "Staden");
-                    Helpers.DrawCity(prison, "Fängelse");
-                    Helpers.DrawCity(poorhouse, "Fattighuset");
+                    CityMethods.DrawCity(city, "Staden");
+                    CityMethods.DrawCity(prison, "Fängelse");
+                    CityMethods.DrawCity(poorhouse, "Fattighuset");
                 }
                 else
                 {
@@ -141,56 +144,13 @@ namespace Tjuv_Polis
                     }
                 }
 
+                index = PersonMethods.MovePersons(index, persons, city);
+                PersonMethods.MovePersons(index, jail.JailedThieves, prison);
+                PersonMethods.MovePersons(index, house.PoorPeople, poorhouse);
 
+                PersonMethods.CountPeople(persons);
 
-
-
-
-                index = Helpers.MovePersons(index, persons, city);
-                Helpers.MovePersons(index, jail.JailedThieves, prison);
-                Helpers.MovePersons(index, poorhouse1.PoorPeople, poorhouse);
-
-                int policeCount = 0;
-                int thiefCount = 0;
-                int citizenCount = 0;
-
-                foreach (Person person in persons)
-                {
-
-                    if (person is Police)
-                    {
-                        policeCount++;
-                    }
-                    else if(person is Thief)
-                    {
-                        thiefCount++;
-                    }
-                    else if (person is Citizen)
-                    {
-                        citizenCount++;
-                    }
-                }
-                Console.WriteLine($"Antal poliser: {policeCount}".PadRight(Console.WindowWidth - 1));
-                Console.WriteLine($"Antal tjuvar: {thiefCount}".PadRight(Console.WindowWidth - 1));
-                Console.WriteLine($"Antal medborgare: {citizenCount}".PadRight(Console.WindowWidth - 1));
-                Console.WriteLine("Antal tjuvar i fängelset: " + jail.JailedThieves.Count);
-                Console.WriteLine("=====================Nyhetsflöde=========================");
-
-                while (queue.Count > 10)
-                {
-                    queue.Dequeue();
-                }
-                if (queue.Count > 0)
-                {
-                    foreach (var msg in queue.Reverse())
-                    {
-                        Console.WriteLine(msg.PadRight(Console.WindowWidth - 1));
-                    }
-                }
-
-                Console.WriteLine("======================Kommandon==========================".PadRight(Console.WindowWidth - 1));
-
-                Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'. För att byta vy tryck 'G'.");
+                queue = OutputMethods.OutputMsg(jail, queue, robbedPeople, arrestedThieves, amountOfHello);
 
                 if (message != null)
                 {
@@ -208,7 +168,7 @@ namespace Tjuv_Polis
                     }
                     else
                     {
-                        newPersonMessage = Helpers.AddPerson(persons, key);
+                        newPersonMessage = PersonMethods.AddPerson(persons, key);
 
                         if (newPersonMessage != "")
                         {

@@ -8,7 +8,7 @@ namespace Tjuv_Polis
     {
         public List<Person> JailedThieves { get; set; } = new List<Person>();
 
-        public void BustedPerson(Thief thief)
+        public int BustedPerson(Thief thief, int arrestedThieves)
         {
             if (thief.StolenGoods.Count > 0)
             {
@@ -19,7 +19,9 @@ namespace Tjuv_Polis
                 thief.StolenGoods.Clear();
                 thief.X = 1;
                 thief.Y = 1;
+                arrestedThieves++;
             }
+            return arrestedThieves;
         }
     }
 }
