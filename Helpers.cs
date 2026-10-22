@@ -56,7 +56,7 @@ namespace Tjuv_Polis
             }
         }
 
-        public static void DrawCity(string[,] city)
+        public static void DrawCity(string[,] city, string building)
         {
 
             for (int row = 0; row < city.GetLength(0); row++)
@@ -64,8 +64,13 @@ namespace Tjuv_Polis
 
                 for (int col = 0; col < city.GetLength(1); col++)
                 {
+                    if(row  == 0 && col == 1)
+                    {
+                        Console.Write(building);
+                        col = col + building.Length-1;
 
-                    if (row == 0 || row == city.GetLength(0) - 1)
+                    }
+                    else if (row == 0 || row == city.GetLength(0) - 1)
                     {
                         Console.Write("=");
                     }

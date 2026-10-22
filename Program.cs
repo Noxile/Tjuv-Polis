@@ -111,9 +111,9 @@ namespace Tjuv_Polis
 
                 if (!systemLog)
                 {
-                    Helpers.DrawCity(city);
-                    Helpers.DrawCity(prison);
-                    Helpers.DrawCity(poorhouse);
+                    Helpers.DrawCity(city, "Staden");
+                    Helpers.DrawCity(prison, "Fängelse");
+                    Helpers.DrawCity(poorhouse, "Fattighuset");
                 }
                 else
                 {
@@ -174,8 +174,7 @@ namespace Tjuv_Polis
                 Console.WriteLine($"Antal tjuvar: {thiefCount}".PadRight(Console.WindowWidth - 1));
                 Console.WriteLine($"Antal medborgare: {citizenCount}".PadRight(Console.WindowWidth - 1));
                 Console.WriteLine("Antal tjuvar i fängelset: " + jail.JailedThieves.Count);
-                Console.WriteLine("=========================================================");
-
+                Console.WriteLine("=====================Nyhetsflöde=========================");
 
                 while (queue.Count > 10)
                 {
@@ -189,8 +188,9 @@ namespace Tjuv_Polis
                     }
                 }
 
-                //Console.WriteLine(newPersonMessage);
-                Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'");
+                Console.WriteLine("======================Kommandon==========================".PadRight(Console.WindowWidth - 1));
+
+                Console.WriteLine("För att lägga till tjuv tryck 'T', polis 'P', medborgare 'C'. För att byta vy tryck 'G'.");
 
                 if (message != null)
                 {
