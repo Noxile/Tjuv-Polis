@@ -8,7 +8,7 @@ namespace Tjuv_Polis
     {
         static void Main(string[] args)
         {
-           
+            // Skapar array för att representera staden
 
             string[,] city = new string[25, 100];
 
@@ -18,6 +18,7 @@ namespace Tjuv_Polis
 
             Queue<string> queue = new Queue<string>();
 
+            // Skapar variabler för att hålla reda på index.
 
             int index = 0;
             int robbedPeople = 0;
@@ -33,13 +34,19 @@ namespace Tjuv_Polis
             Console.CursorVisible = false;
             bool systemLog = false;
 
+            // Startar huvudloopen för programmet
+
             while (true)
             {
                 string message = null;
 
+                // Förbereder staden, fängelset och fattighuset för att ritas ut
+
                 CityMethods.PrepareCity(persons, city);
                 CityMethods.PrepareCity(jail.JailedThieves, prison);
                 CityMethods.PrepareCity(house.PoorPeople, poorhouse);
+
+                // Loopar igenom alla personer i staden och kollar om de möter varandra
 
                 foreach (Person person in persons)
                 {
@@ -83,12 +90,15 @@ namespace Tjuv_Polis
                     }
                 }
 
+                // Släpper tjuvar som har avtjänat sitt straff och flyttar fattiga personer till fattighuset
+
                 persons = PersonMethods.ReleaseThiefs(persons, jail);
 
                 persons = PersonMethods.MoveToPoorhouse(persons, house);
 
                 Console.SetCursorPosition(0, 0);
 
+                // Ritar ut staden, fängelset och fattighuset eller visar systemlogg beroende på användarens val
 
                 if (!systemLog)
                 {
@@ -100,6 +110,8 @@ namespace Tjuv_Polis
                 {
                     OutputMethods.ShowSystemLog(persons);
                 }
+
+                // Flyttar personer till sina nya positioner och räknar antalet personer i staden
 
                 index = PersonMethods.MovePersons(index, persons, city);
                 PersonMethods.MovePersons(index, jail.JailedThieves, prison);
@@ -113,6 +125,8 @@ namespace Tjuv_Polis
                 {
                     Thread.Sleep(2000);
                 }
+
+                // Kollar om användaren trycker på en tangent och hanterar input
 
                 if (Console.KeyAvailable)
                 {

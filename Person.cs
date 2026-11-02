@@ -27,6 +27,8 @@ namespace Tjuv_Polis
 
         public virtual string MeetPerson(Person otherPerson)
         {
+            // Denna metod är avsedd att överskrivas i subklasserna Thief, Police och Citizen för att definiera specifika interaktioner mellan olika typer av personer
+
             return "";
         }
     }
@@ -41,6 +43,8 @@ namespace Tjuv_Polis
         }
         public override string MeetPerson(Person otherPerson)
         {
+            // Om tjuven möter en medborgare och medborgaren har tillhörigheter, stjäl tjuven en slumpmässig tillhörighet
+
             if (otherPerson is Citizen citizen && citizen.Belongings.Count > 0)
             {
                 int randomIndex = Random.Shared.Next(0, citizen.Belongings.Count);
@@ -65,6 +69,8 @@ namespace Tjuv_Polis
 
         public override string MeetPerson(Person otherPerson)
         {
+            // Om polisen möter en tjuv och tjuven har stulna föremål, beslagtar polisen alla stulna föremål
+
             if (otherPerson is Thief thief && thief.StolenGoods.Count > 0)
             {
                 ConfiscatedGoods.AddRange(thief.StolenGoods);
@@ -84,6 +90,8 @@ namespace Tjuv_Polis
         public List<Item> Belongings { get; set; } = new List<Item>();
         public Citizen(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
         {
+            // Lägger till några tillhörigheter för medborgaren
+
             Belongings.Add(new Item("Nycklar"));
             Belongings.Add(new Item("Mobiltelefon"));
             Belongings.Add(new Item("Pengar"));

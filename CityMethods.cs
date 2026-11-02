@@ -8,6 +8,8 @@ namespace Tjuv_Polis
     {
         public static void PrepareCity(List<Person> persons, string[,] city)
         {
+            // Förbereder staden genom att fylla den med tomma tecken och sedan placera ut alla personer på deras respektive positioner
+
             for (int r = 0; r < city.GetLength(0); r++)
             {
                 for (int c = 0; c < city.GetLength(1); c++)
@@ -25,6 +27,7 @@ namespace Tjuv_Polis
 
         public static void DrawCity(string[,] city, string building)
         {
+            // Ritar ut staden,fängelse och fattighus i konsolen med ram runt 
 
             for (int row = 0; row < city.GetLength(0); row++)
             {

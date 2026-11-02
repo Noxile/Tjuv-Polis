@@ -10,6 +10,8 @@ namespace Tjuv_Polis
 
         public int BustedPerson(Thief thief, int arrestedThieves)
         {
+            // Om tjuven har stulit något, sätts ett release time baserat på antalet stulna tillhörigheter och tjuven läggs till i listan över fängslade tjuvar
+
             if (thief.StolenGoods.Count > 0)
             {
                 thief.ReleaseTime = DateTime.Now.AddSeconds(thief.StolenGoods.Count * 10);

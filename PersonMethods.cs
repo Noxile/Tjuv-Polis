@@ -10,6 +10,8 @@ namespace Tjuv_Polis
         {
             List<Person> persons = new List<Person>();
 
+            // Skapar 80 personer med slumpmässiga positioner och riktningar
+
             for (int i = 0; i < 80; i++)
             {
                 int nr = Random.Shared.Next(0, 3);
@@ -41,6 +43,8 @@ namespace Tjuv_Polis
 
         public static int MovePersons(int index, List<Person> persons, string[,] city)
         {
+            // Loopar igenom alla personer och uppdaterar deras positioner baserat på deras riktning
+
             foreach (Person person in persons)
             {
                 if (index == 0)
@@ -82,6 +86,8 @@ namespace Tjuv_Polis
                 person.Y += person.Ydirection;
                 person.X += person.Xdirection;
 
+                // Kollar om personen har gått utanför stadens gränser och placerar dem på motsatt sida om de har gjort det
+
                 if (person.X == city.GetLength(1) - 1)
                 {
                     person.X = 1;
@@ -111,6 +117,8 @@ namespace Tjuv_Polis
 
         public static string AddPerson(List<Person> persons, ConsoleKey key)
         {
+            // Skapar en ny person baserat på användarens input och lägger till den i listan över personer
+
             int x = Random.Shared.Next(1, 99);
             int y = Random.Shared.Next(1, 24);
 
@@ -137,6 +145,8 @@ namespace Tjuv_Polis
 
         public static void CountPeople(List<Person> persons)
         {
+            // Räknar antalet poliser, tjuvar och medborgare i listan över personer
+
             int policeCount = 0;
             int thiefCount = 0;
             int citizenCount = 0;
@@ -164,6 +174,8 @@ namespace Tjuv_Polis
 
         public static List<Person> ReleaseThiefs(List<Person> persons, Jail jail)
         {
+            // Tar bort tjuvar som har avtjänat sitt straff från listan över personer och lägger tillbaka dem i staden
+
             foreach (Thief thief in jail.JailedThieves)
             {
                 persons.Remove(thief);
@@ -188,6 +200,8 @@ namespace Tjuv_Polis
 
         public static List<Person> MoveToPoorhouse(List<Person> persons, PoorHouse house)
         {
+            // Tar bort fattiga personer från listan över personer och lägger dem i fattighuset
+
             foreach (Citizen citizen1 in house.PoorPeople)
             {
                 persons.Remove(citizen1);

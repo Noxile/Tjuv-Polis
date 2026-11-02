@@ -9,6 +9,8 @@ namespace Tjuv_Polis
     {
         public static Queue<string> OutputMsg(Jail jail, Queue<string> queue, int robbedPeople, int arrestedThieves, int amountOfHello)
         {
+            // Skriver ut statistik och nyhetsflöde
+
             Console.WriteLine($"Antal rånade invånare: {robbedPeople}");
             Console.WriteLine($"Antal gripna tjuvar: {arrestedThieves}");
             Console.WriteLine($"Antal HEJ HEJ hälsningar: {amountOfHello}");
@@ -36,6 +38,8 @@ namespace Tjuv_Polis
 
         public static void ShowSystemLog(List<Person> persons)
         {
+            // Skriver ut alla personer i alternativ view och deras positioner samt tillhörigheter
+
             Console.Clear();
             Console.WriteLine("========== PERSONER I STADEN ==========");
 

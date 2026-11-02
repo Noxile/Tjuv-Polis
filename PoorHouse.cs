@@ -10,7 +10,9 @@ namespace Tjuv_Polis
 
         public void PoorPerson(Citizen citizen)
         {
-            if(citizen.Belongings.Count == 0)
+            // Om medborgaren inte har några tillhörigheter, läggs medborgaren till i listan över fattiga personer och flyttas till fattighuset
+
+            if (citizen.Belongings.Count == 0)
             {
                 PoorPeople.Add(citizen);
                 citizen.X = 1;
