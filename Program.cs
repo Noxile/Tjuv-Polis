@@ -83,31 +83,9 @@ namespace Tjuv_Polis
                     }
                 }
 
-                foreach (Thief thief in jail.JailedThieves)
-                {
-                    persons.Remove(thief);
-                }
+                persons = PersonMethods.ReleaseThiefs(persons, jail);
 
-                for (int i = jail.JailedThieves.Count - 1; i >= 0; i--)
-                {
-                    Thief thief = (Thief)jail.JailedThieves[i];
-
-                    if (DateTime.Now >= thief.ReleaseTime)
-                    {
-                        jail.JailedThieves.Remove(thief);
-
-                        thief.X = 1;
-                        thief.Y = 1;
-
-                        persons.Add(thief);
-                    }
-                }
-
-
-                foreach (Citizen citizen1 in house.PoorPeople)
-                {
-                    persons.Remove(citizen1);
-                }
+                persons = PersonMethods.MoveToPoorhouse(persons, house);
 
                 Console.SetCursorPosition(0, 0);
 
@@ -159,11 +137,6 @@ namespace Tjuv_Polis
                 {
                     Thread.Sleep(200);
                 }
-
-                //ConsoleKey key = Console.ReadKey(true).Key;
-
-                //newPersonMessage = Helpers.AddPerson(persons, key);
-
 
             }
 

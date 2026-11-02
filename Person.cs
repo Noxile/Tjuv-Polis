@@ -38,7 +38,6 @@ namespace Tjuv_Polis
 
         public Thief(int x, int y, char symbol, int xDirection, int yDirection) : base(x, y, symbol, xDirection, yDirection)
         {
-            //JailTime = 0;
         }
         public override string MeetPerson(Person otherPerson)
         {

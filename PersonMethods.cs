@@ -161,5 +161,38 @@ namespace Tjuv_Polis
             Console.WriteLine($"Antal tjuvar: {thiefCount}".PadRight(Console.WindowWidth - 1));
             Console.WriteLine($"Antal medborgare: {citizenCount}".PadRight(Console.WindowWidth - 1));
         }
+
+        public static List<Person> ReleaseThiefs(List<Person> persons, Jail jail)
+        {
+            foreach (Thief thief in jail.JailedThieves)
+            {
+                persons.Remove(thief);
+            }
+
+            for (int i = jail.JailedThieves.Count - 1; i >= 0; i--)
+            {
+                Thief thief = (Thief)jail.JailedThieves[i];
+
+                if (DateTime.Now >= thief.ReleaseTime)
+                {
+                    jail.JailedThieves.Remove(thief);
+
+                    thief.X = 1;
+                    thief.Y = 1;
+
+                    persons.Add(thief);
+                }
+            }
+            return persons;
+        }
+
+        public static List<Person> MoveToPoorhouse(List<Person> persons, PoorHouse house)
+        {
+            foreach (Citizen citizen1 in house.PoorPeople)
+            {
+                persons.Remove(citizen1);
+            }
+            return persons;
+        }
     }
 }
