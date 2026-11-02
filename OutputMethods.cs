@@ -33,5 +33,52 @@ namespace Tjuv_Polis
 
             return queue;
         }
+
+        public static void ShowSystemLog(List<Person> persons)
+        {
+            Console.Clear();
+            Console.WriteLine("========== PERSONER I STADEN ==========");
+
+            int personIndex = 1;
+
+            foreach (Person person in persons)
+            {
+                if (person is Thief thief)
+                {
+                    Console.Write("Person " + personIndex + ": Tjuv - " + person.X + ", " + person.Y + ", ( ");
+
+                    foreach (Item belongings in thief.StolenGoods)
+                    {
+                        Console.Write(belongings.Name + ", ");
+                    }
+                    Console.Write(")");
+                    Console.WriteLine();
+                }
+                else if (person is Police police)
+                {
+                    Console.Write("Person " + personIndex + ": Polis - " + person.X + ", " + person.Y + ", ( ");
+
+                    foreach (Item belongings in police.ConfiscatedGoods)
+                    {
+                        Console.Write(belongings.Name + ", ");
+                    }
+                    Console.Write(")");
+                    Console.WriteLine();
+                }
+                else if (person is Citizen citizen)
+                {
+                    Console.Write("Person " + personIndex + ": Medborgare - " + person.X + ", " + person.Y + ", ( ");
+
+                    foreach (Item belongings in citizen.Belongings)
+                    {
+                        Console.Write(belongings.Name + ", ");
+                    }
+                    Console.Write(")");
+                    Console.WriteLine();
+                }
+
+                personIndex++;
+            }
+        }
     }
 }

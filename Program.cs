@@ -120,28 +120,7 @@ namespace Tjuv_Polis
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("========== PERSONER I STADEN ==========");
-
-                    int personIndex = 1;
-
-                    foreach (Person person in persons)
-                    {
-                        if (person is Thief)
-                        {
-                            Console.WriteLine("Person " + personIndex + ": Tjuv - " + person.X + ", " + person.Y);
-                        }
-                        else if (person is Police)
-                        {
-                            Console.WriteLine("Person " + personIndex + ": Polis - " + person.X + ", " + person.Y);
-                        }
-                        else if (person is Citizen)
-                        {
-                            Console.WriteLine("Person " + personIndex + ": Medborgare - " + person.X + ", " + person.Y);
-                        }
-
-                        personIndex++;
-                    }
+                    OutputMethods.ShowSystemLog(persons);
                 }
 
                 index = PersonMethods.MovePersons(index, persons, city);
