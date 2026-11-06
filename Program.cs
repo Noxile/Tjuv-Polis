@@ -123,7 +123,7 @@ namespace Tjuv_Polis
 
                 if (message != null)
                 {
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                 }
 
                 // Kollar om användaren trycker på en tangent och hanterar input

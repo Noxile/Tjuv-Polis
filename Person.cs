@@ -79,7 +79,7 @@ namespace Tjuv_Polis
             }
             else
             {
-                return "Polisen möter en tjuv men fanns inget att beslagta.";
+                return "Polisen möter en tjuv men det fanns inget att beslagta.";
             }
 
 
